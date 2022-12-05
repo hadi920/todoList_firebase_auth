@@ -1,0 +1,251 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #eff5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background: #d6e4e5;
+  height: 70vh;
+  width: 50vw;
+  border-radius: 10px;
+  border: 1px solid black;
+  max-width: 600px;
+  padding: 0 10px;
+}
+
+@media screen and (max-width: 700px) {
+  body {
+    padding: 0 10px;
+  }
+  .container {
+    width: 80vw;
+  }
+}
+
+.heading h1 {
+  text-align: center;
+  margin: 30px 0;
+  font-weight: 400;
+}
+.input input {
+  padding: 10px 5px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: none;
+  font-family: "Poppins", sans-serif;
+  width: 250px;
+}
+.input {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.input button {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+.input button:hover {
+  background: cornflowerblue;
+}
+
+.list select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  font-family: "Poppins", sans-serif;
+}
+
+.list {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 30px;
+  background-color: azure;
+  padding: 5px;
+  align-items: center;
+  border-radius: 9px;
+  margin-bottom: 5px;
+}
+.tasks {
+  padding: 0 15px;
+}
+
+.input-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.subtasks {
+  margin-top: 5px;
+  margin-left: 20px;
+}
+
+.subtasks button {
+  padding: 2px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  background: #9ed5c5;
+  outline: none;
+  font-family: "Poppins", sans-serif;
+}
+
+.subtask-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.subtask-item .del-icon {
+  font-size: 20px;
+  color: #d23369;
+  cursor: pointer;
+}
+
+.subtasks input {
+  padding: 3px;
+  font-family: "Poppins", sans-serif;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid grey;
+  margin-right: 30px;
+  margin-left: -20px;
+}
+
+.check {
+  background: white;
+  padding: 5px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+}
+.completed {
+  background: grey;
+  padding: 5px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  text-decoration: line-through;
+}
+.editInput input {
+  background: transparent;
+  background: grey;
+  border: none;
+  padding: 5px;
+  color: white;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+.buttons {
+  display: flex;
+}
+
+.buttons button {
+  margin: 0 5px;
+  padding: 3px;
+  border-radius: 10px;
+  border: none;
+  font-family: "Poppins", sans-serif;
+}
+
+.buttons button.update {
+  background: cornflowerblue;
+  border: 1px solid black;
+}
+.buttons button.done {
+  background: #9ed5c5;
+  border: 1px solid black;
+}
+.buttons button.del {
+  background: #e97777;
+  border: 1px solid black;
+}
+
+.buttons button.sub {
+  background: #fff6bf;
+  border: 1px solid black;
+}
+
+.lined {
+  text-decoration: line-through;
+}
+
+.signinform {
+  display: flex;
+  flex-direction: column;
+}
+
+.signinform .input input {
+  width: 100%;
+}
+
+.signinform button {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #9ed5c5;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+}
+
+.navigate {
+  text-align: center;
+  margin-top: 50px;
+  background: cornflowerblue;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+.navigate .link {
+  text-decoration: none;
+  text-align: center;
+  color: white;
+}
+
+.logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+}
+
+.logout button {
+  position: absolute;
+  /* bottom: 20px; */
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 10px;
+}
+.logout button .link {
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  transition: 0.3s ease;
+}
+
+.logout button .link:hover {
+  background: red;
+  padding: 10px;
+  border-radius: 10px;
+}

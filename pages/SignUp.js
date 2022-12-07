@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { setDoc, doc, addDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import useFetchTodos from "../hooks/fetchUserData";
+import { Modal } from "next-modal";
 
 function SignUp() {
   const router = useRouter();
@@ -12,9 +13,12 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [toggleModal, setToggleModal] = useState(false);
   const [isError, setIsError] = useState(true);
-  const { signup, currentUser, Error } = useAuth();
-  const push = () => {
+  const { signup, currentUser, Error, logout } = useAuth();
+
+  const push = async () => {
+    await logout();
     router.push("/");
   };
 
@@ -48,9 +52,17 @@ function SignUp() {
 
   const register = async () => {
     try {
+      const promise = new Promise((resolve, reject) => {
+        resolve(signup(name, email, password));
+        reject(0);
+      });
       if (check(email, password)) {
-        console.log("GGGGGG");
-        await signup(name, email, password).then(() => push());
+        // await signup(name, email, password)
+        await promise.then(() => {
+          // push();
+          setToggleModal(true);
+          // checkCurrentUser();
+        });
       }
     } catch (error) {
       setIsError(true);
@@ -61,8 +73,8 @@ function SignUp() {
       <div className="container">
         <div className="heading">
           <h1>SIGN-UP PAGE</h1>
-          <h3>{Error ? Error : ""}</h3>
-          <h3>{error}</h3>
+          <h3 className="Error">{Error ? Error : ""}</h3>
+          <h3 className="Error">{error}</h3>
         </div>
         <div className="signinform">
           <div className="input">
@@ -72,6 +84,20 @@ function SignUp() {
               required
               onChange={(e) => setName(e.target.value)}
             />
+            <Modal toggle={toggleModal} setToggle={setToggleModal}>
+              <Modal.Header className="sans font-900 text-30px fade-in-left animation-duration-500ms animation-forwards">
+                <h3>Account Created Successfully</h3>
+              </Modal.Header>
+              <button
+                className="modal-button"
+                onClick={() => {
+                  setToggleModal(false);
+                  push();
+                }}
+              >
+                OK
+              </button>
+            </Modal>
             <input
               type={"text"}
               placeholder={"Enter Email"}

@@ -16,7 +16,7 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [Error, setError] = useState("");
+  const [Error, setEror] = useState("");
   const userInfo = useRef();
 
   function signup(name, email, password) {
@@ -25,26 +25,17 @@ export function AuthProvider({ children }) {
         console.log(currentUser);
         console.log(currentUser.uid);
       })
-      .catch((error) => setError(error.code));
+      .catch((error) => setEror(error.code));
     return;
   }
 
   function login(email, password) {
-    try {
-      signInWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      setError(error.code);
-    }
-    //return;
-  }
-  function saveUserData(name, email, password, userRef, uid) {
-    console.log("CALLED");
-    setDoc(userRef, {
-      name: name,
-      email: email,
-      password: password,
-      userId: uid,
-    });
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => console.log(currentUser))
+      .catch((err) => {
+        setEror(err.code);
+      });
+    return;
   }
 
   function logout() {
@@ -67,6 +58,7 @@ export function AuthProvider({ children }) {
     logout,
     userInfo,
     Error,
+    setEror,
   };
 
   return (

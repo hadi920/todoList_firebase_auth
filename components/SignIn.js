@@ -7,7 +7,7 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { login, currentUser, Error } = useAuth();
+  const { login, currentUser, Error, setEror } = useAuth();
   console.log(currentUser);
 
   const validateUserEmail = (text) => {
@@ -37,8 +37,13 @@ function SignIn() {
   }
   const signIn = async () => {
     try {
+      const promise = new Promise((resolve, reject) => {
+        resolve(login(email, password));
+      });
       if (check(email, password)) {
-        await login(email, password);
+        await promise.then(() => {
+          setEror("");
+        });
       }
     } catch (error) {
       console.log("Error", error);
@@ -49,8 +54,8 @@ function SignIn() {
       <div className="container">
         <div className="heading">
           <h1>LOG-IN PAGE</h1>
-          <h3>{error}</h3>
-          <h3>{Error ? Error : ""}</h3>
+          {/* <h3 className="Error">{error ? error : ""}</h3> */}
+          <h3 className="Error">{Error ? Error : ""}</h3>
         </div>
         <div className="signinform">
           <div className="input">

@@ -37,6 +37,10 @@ export default function TodoCard(props) {
     //console.log(subTasks);
   }
 
+  function change() {
+    setMainChecked(!mainChecked);
+  }
+
   return (
     <>
       <div className={todos[index]["completed"] ? "completed" : "check"}>
@@ -57,13 +61,17 @@ export default function TodoCard(props) {
               <input
                 type={"checkbox"}
                 checked={todos[index]["completed"]}
-                onChange={(e) => {
+                onChange={() => {
                   setMainChecked(!mainChecked);
                 }}
                 onClick={() => {
-                  mainTaskChecked(taskId, mainChecked);
+                  //console.log("FROM TODO CARD BEFORE", mainChecked);
+                  // mainTaskChecked(taskId, mainChecked);
+                  mainTaskChecked(taskId, todos[index]["completed"]);
+                  //change();
                 }}
               />
+              {console.log("FROM TODO CARD", todos)}
             </div>
             {edit === taskId ? (
               <button className="done" onClick={handleEditTodo}>

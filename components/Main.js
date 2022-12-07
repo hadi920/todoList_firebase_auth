@@ -48,21 +48,23 @@ export default function Main() {
   };
 
   async function handleAddTodo() {
-    const temp = [];
-    todos.map((task) => {
-      temp.push(task);
-    });
-    const id = uuidv4();
-    temp.push({ todo: todo, completed: false, subtasks: [], taskId: id });
-    setTodos(temp);
-    const todoRef = doc(db, "tasks", id);
-    await setDoc(todoRef, {
-      userId: currentUser.uid,
-      taskId: id,
-      todo: todo,
-      completed: false,
-      subtasks: [],
-    });
+    if (todo) {
+      const temp = [];
+      todos.map((task) => {
+        temp.push(task);
+      });
+      const id = uuidv4();
+      temp.push({ todo: todo, completed: false, subtasks: [], taskId: id });
+      setTodos(temp);
+      const todoRef = doc(db, "tasks", id);
+      await setDoc(todoRef, {
+        userId: currentUser.uid,
+        taskId: id,
+        todo: todo,
+        completed: false,
+        subtasks: [],
+      });
+    }
   }
 
   async function handleDelete(userId, taskId) {
@@ -153,6 +155,7 @@ export default function Main() {
   }
 
   async function mainTaskChecked(taskId, currentState) {
+    console.log("MAIN CHECKED", currentState);
     const temp = [];
     let data = null;
     todos.map((task) => {
@@ -161,24 +164,28 @@ export default function Main() {
         data.completed = !currentState;
         data["subtasks"]?.map((sub) => {
           sub.completed = !currentState;
+          console.log(data);
         });
+
         temp.push(data);
       } else {
         temp.push(task);
       }
     });
+    console.log("MAIN LIST", temp);
     setTodos(temp);
     const docRef = doc(db, "tasks", taskId);
     await setDoc(docRef, data);
   }
 
   async function checkAll(taskId, subTaskId, currentState) {
+    console.log("SUBTASK", currentState);
     const temp = [];
     let data = null;
+    let flag = false;
     todos.map((task) => {
       if (task.taskId == taskId) {
         data = task;
-        let flag = false;
         data["subtasks"].map((sub) => {
           if (sub.subTaskId == subTaskId) {
             sub.completed = !currentState;
@@ -193,14 +200,17 @@ export default function Main() {
             break;
           }
         }
-        console.log(flag);
         data.completed = flag;
+        console.log("COMPLETED", data.completed);
         temp.push(data);
       } else {
         temp.push(task);
       }
     });
+    console.log("FLAG", flag);
+
     setTodos(temp);
+    console.log("TO", todos);
     const docRef = doc(db, "tasks", taskId);
     await setDoc(docRef, data);
   }
